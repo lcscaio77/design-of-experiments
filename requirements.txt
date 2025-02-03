@@ -1,0 +1,24 @@
+# Streamlit pour l'interface utilisateur
+streamlit
+
+# Bibliothèques scientifiques pour les plans d'expérience
+numpy
+pandas
+scipy
+statsmodels
+scikit-learn
+pyDOE2  # Pour générer des plans d'expérience classiques (Full Factorial, Fractional Factorial, Plackett-Burman, etc.)
+
+# Visualisation des résultats
+matplotlib
+seaborn
+plotly
+
+# Optionnel : gestion des fichiers Excel
+openpyxl
+xlrd
+
+# Optionnel : si utilisation de modèles de Machine Learning pour analyser les résultats
+xgboost
+lightgbm
+catboost
