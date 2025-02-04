@@ -46,6 +46,21 @@ def load_data(num_params, num_levels, num_trials, target_variable):
 
 
 #------------------ Etape 3 : Tirage aléatoire --------------------#
+
+import pandas as pd
+import itertools
+
+def generate_interactions(df):
+
+    numeric_cols = df.select_dtypes(include=['number']).columns  
+    
+    for r in range(2, len(numeric_cols) + 1):  
+        for cols in itertools.combinations(numeric_cols, r):
+            col_name = "_x_".join(cols)  # Ex: "X1_x_X2"
+            df[col_name] = df[list(cols)].prod(axis=1)  
+            
+    return df #cette fonction permet de visualiser les confusions avec les interactions entre variables
+
 def random_sample(df, num_trials):
 
     st.header("3. Tirage Aléatoire et Confusions 🌖")
@@ -69,7 +84,7 @@ def random_sample(df, num_trials):
             mime="text/csv"
         )
 
-        return edited_trials
+        return generate_interactions(edited_trials.drop(columns=['Résultat']))
     return None  # Si aucun bouton n'est cliqué, retourne None
 
 
