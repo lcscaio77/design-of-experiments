@@ -74,26 +74,28 @@ def random_sample(df, num_trials):
 
 
 #------------------ Etape 3.bis : Matrice de confusion --------------------#
-def df_confusion(df):
 
+def df_confusion(df):
     if df is None or df.empty:
         st.warning("Aucune donnée disponible pour générer la matrice de confusion.")
-        return None #securité
-    
+        return None  # Sécurité
+
     n = df.shape[1]
-    confusion_matrix = np.zeros((n, n)) 
+    confusion_matrix = np.zeros((n, n))
 
     for i in range(n):
         for j in range(n):
-            confusion_matrix[i, j] = np.sum(df.iloc[:, i] == df.iloc[:, j]) #comprehension pour gagner de la place 
+            confusion_matrix[i, j] = np.sum(df.iloc[:, i] == df.iloc[:, j])  
 
     confusion_matrix /= df.shape[0]
+
+    labels = df.columns if df.columns is not None else [f"Col {i+1}" for i in range(n)]
+    confusion_df = pd.DataFrame(confusion_matrix, index=labels, columns=labels)
+
     st.write("### Matrice de Confusion Normalisée")
-    st.dataframe(confusion_matrix)
-    
-    return confusion_matrix
+    st.dataframe(confusion_df.style.format(precision=2).background_gradient(cmap="Blues"))
 
-
+    return confusion_df
 
 
 
