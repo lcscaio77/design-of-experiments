@@ -21,5 +21,5 @@ df = load_data(num_params, num_levels, num_trials, target_variable)
 #------------------ Étape 3 --------------------
 selected_trials = random_sample(df, num_trials)
 
-if selected_trials is not None:  # S'assurer que des essais ont été générés avant d'afficher la confusion
+if selected_trials is not None:  # Debugging pour la generation confusion 
     df_confusion(selected_trials)
