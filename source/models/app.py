@@ -6,6 +6,19 @@ from pyDOE2 import fullfact
 from fonctions import *
 
 #-------------------------------Application-------------------------------------
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background: linear-gradient(to right, #A7C7E7, #CFE2F3); /* Bleu pastel clair → Bleu encore plus clair */
+        height: 100vh;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)#jolie fond :)
+
+
 st.title("Design of Experiments 🚀")
 st.write("### Bienvenue dans l'application de Design of Experiments (DOE) !")
 st.write("Cette application vous permet de générer des essais aléatoires, de charger des résultats expérimentaux et d'optimiser les paramètres de votre expérience.")
