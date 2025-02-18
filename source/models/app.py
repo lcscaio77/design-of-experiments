@@ -35,4 +35,11 @@ df = load_data(num_params, num_levels, num_trials, target_variable)
 selected_trials = random_sample(df, num_trials)
 
 if selected_trials is not None:  # Debugging pour la generation confusion 
-    df_confusion(selected_trials)
+    df_confusion(selected_trials)  
+
+#------------------ Étape 4 --------------------
+regression_lineaire(df)
+
+
+
+
