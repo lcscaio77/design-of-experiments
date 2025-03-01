@@ -10,17 +10,16 @@ st.markdown(
     """
     <style>
     .stApp {
-        background: linear-gradient(to right, #A7C7E7, #CFE2F3); /* Bleu pastel clair → Bleu encore plus clair */
+        background: linear-gradient(to right,rgb(252, 252, 252), #CFE2F3); /* Bleu pastel clair → Bleu encore plus clair */
         height: 100vh;
     }
     </style>
     """,
     unsafe_allow_html=True
-)#jolie fond :)
-
+) #jolie fond :)
 
 st.title("Design of Experiments 🚀")
-st.write("### Bienvenue dans l'application de Design of Experiments (DOE) !")
+st.write("### Bienvenue dans l'application de Design of Experiments !")
 st.write("Cette application vous permet de générer des essais aléatoires, de charger des résultats expérimentaux et d'optimiser les paramètres de votre expérience.")
 st.write("Pour commencer, veuillez suivre les étapes ci-dessous :")
 
@@ -38,7 +37,10 @@ if selected_trials is not None:  # Debugging pour la generation confusion
     df_confusion(selected_trials)  
 
 #------------------ Étape 4 --------------------
-regression_lineaire(df)
+if 'Résultat' in df.columns and not df['Résultat'].isnull().any():
+    regression_lineaire(df)
+else:
+    st.write("### 4. Aucun résultat expérimental chargé")
 
 
 

@@ -44,7 +44,7 @@ def config_initiale():
                 levels_list.append(level)
         num_levels = ','.join(map(str, levels_list))  # Conversion en format texte pour compatibilité
 
-    num_trials = st.number_input("Nombre d'essais réalisables", min_value=1, step=1, value=5)
+    num_trials = st.number_input("Nombre d'essais réalisables (-1 pour un test)", min_value=1, step=1, value=5)
     target_variable = st.text_input("Nom de la variable cible", "Résultat")
     
     return num_params, num_levels, num_trials, target_variable
@@ -180,30 +180,73 @@ def df_confusion(df):
     return confusion_df
 
 #------------------ Etape 4 : Régression Linéaire --------------------#
-# À implémenter : Analyse par régression linéaire des résultats expérimentaux
 
-def otpimisation(df):
+def optimisation(df):
     features = df.columns[:-1]
     x = df[features]
     y = df['Résultat']
     x = sm.add_constant(x)
 
     resultat = sm.OLS(y, x).fit()
+    
+    return resultat
 
-    return resultat.summary()
-
-
+def trouver_meilleure_combinaison(df, objectif='minimiser'):
+    """
+    Args:
+        df: DataFrame contenant les données
+        objectif: 'minimiser' ou 'maximiser'
+    """
+    
+    model = optimisation(df)
+    coef = model.params[1:]  
+    const = model.params[0]  
+    
+    # Pour chaque facteur, on trouve la valeur optimale dans la plage disponible
+    optimal_values = {}
+    for feature, coefficient in zip(df.columns[:-1], coef):
+        valeurs_possibles = sorted(df[feature].unique())
+        if objectif == 'minimiser':
+            # Si coefficient positif, on prend la plus petite valeur
+            # Si coefficient négatif, on prend la plus grande valeur
+            optimal_values[feature] = valeurs_possibles[0] if coefficient > 0 else valeurs_possibles[-1] #les valeurs sont entre -1 et 1
+        else:  # maximiser, on inverse
+            # Si coefficient positif, on prend la plus grande valeur
+            # Si coefficient négatif, on prend la plus petite valeur
+            optimal_values[feature] = valeurs_possibles[-1] if coefficient > 0 else valeurs_possibles[0]
+    
+    #Prediction de la valeur optimale
+    predicted_value = const + sum(coef * list(optimal_values.values()))
+    
+    st.write("### Combinaison optimale des facteurs :")
+    for feature, value in optimal_values.items():
+        st.write(f"{feature}: {value:.3f}")
+    
+    st.write(f"\n### Valeur prédite: {predicted_value:.4f}")
+    
+    return optimal_values, predicted_value
 
 def regression_lineaire(df):
     st.header("4. Analyse par Régression Linéaire 🌕")
     
-    if st.button("Effectuer l'analyse"):
+    # Choix de l'objectif d'abord
+    objectif = st.radio(
+        "Objectif d'optimisation :",
+        ("minimiser", "maximiser"),
+        key="objectif_optimisation"
+    )
+    
+    if st.button("Effectuer l'analyse complète"):
         if df is None or df.empty:
             st.warning("Aucune donnée disponible pour l'analyse.")
         else:
-            st.write("### Analyse par Régression Linéaire")
+            # Affichage des résultats de régression
             st.write("### Résultats de la régression linéaire :")
-            st.write(otpimisation(df))
+            model = optimisation(df)
+            st.write(model.summary())
+            
+            # Directement chercher la combinaison optimale
+            trouver_meilleure_combinaison(df, objectif)
 
 
 
