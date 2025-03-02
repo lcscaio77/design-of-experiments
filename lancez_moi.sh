@@ -1,15 +1,19 @@
 #!/bin/bash
 
-# venv
-echo "Création de l'environnement virtuel..."
-python3 -m venv venv
-source venv/bin/activate
-echo "Installation des dépendances..."
-pip install -r requirements.txt
+echo "Creation et activation de l'environnement virtuel..."
 
+# Créer l'environnement virtuel s'il n'existe pas
+if [ ! -d "venv" ]; then
+    python3 -m venv venv
+    source venv/bin/activate
+    pip install -r requirements.txt
+else
+    source venv/bin/activate
+fi
 
+# Lancer l'application
 echo "Lancement de l'application..."
-streamlit run app.py
+python -m streamlit run source/models/app.py
 
 
 

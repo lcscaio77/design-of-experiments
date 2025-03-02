@@ -26,6 +26,24 @@ Une application **Streamlit** pour la conception et l'analyse de plans d'expéri
 
 ## 🚀 Installation  
 
+Les scripts d'installation configurent automatiquement :
+- Un environnement virtuel Python
+- Les dépendances requises
+- Le lancement de l'application
+
+### Linux/MacOS
 ```bash
+# Rendre le script exécutable
+chmod +x lancez_moi.sh
+
+# Lancer l'application
 ./lancez_moi.sh
 ```
+
+### Windows
+```batch
+# Lancer l'application
+lancez_moi.bat
+```
+
+⚠️ Prérequis : Python 3.8 ou supérieur doit être installé sur votre système
