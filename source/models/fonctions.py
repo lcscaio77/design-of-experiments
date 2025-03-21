@@ -114,7 +114,7 @@ def load_data(num_params, num_levels, num_trials, target_variable):
             st.error(f"Erreur lors de la création de la matrice : {str(e)}")
             return None
 
-#------------------ Etape 3 : Tirage aléatoire --------------------#
+#------------------ Etape 3 : Tirage --------------------#
 
 
 
@@ -150,7 +150,7 @@ def latin_hypercube_sample(df, num_trials):
 
 
 
-def random_sample(df, num_trials):
+def random_sample_lhs(df, num_trials):
     st.header("3. Tirage Aléatoire/Latin Hypercube et Confusions 🌖")
 
     col1, col2 = st.columns(2)
@@ -243,8 +243,6 @@ def trouver_meilleure_combinaison(df, objectif='minimiser'):
             # Si coefficient négatif, on prend la plus grande valeur
             optimal_values[feature] = valeurs_possibles[0] if coefficient > 0 else valeurs_possibles[-1] #les valeurs sont entre -1 et 1
         else:  # maximiser, on inverse
-            # Si coefficient positif, on prend la plus grande valeur
-            # Si coefficient négatif, on prend la plus petite valeur
             optimal_values[feature] = valeurs_possibles[-1] if coefficient > 0 else valeurs_possibles[0]
     
     #Prediction de la valeur optimale
@@ -261,7 +259,7 @@ def trouver_meilleure_combinaison(df, objectif='minimiser'):
 def regression_lineaire(df):
     st.header("4. Analyse par Régression Linéaire 🌕")
     
-    # Choix de l'objectif d'abord
+    # Choix
     objectif = st.radio(
         "Objectif d'optimisation :",
         ("minimiser", "maximiser"),
@@ -272,12 +270,11 @@ def regression_lineaire(df):
         if df is None or df.empty:
             st.warning("Aucune donnée disponible pour l'analyse.")
         else:
-            # Affichage des résultats de régression
             st.write("### Résultats de la régression linéaire :")
             model = optimisation(df)
             st.write(model.summary())
             
-            # Directement chercher la combinaison optimale
+            #combinaison optimale
             trouver_meilleure_combinaison(df, objectif)
 
 
