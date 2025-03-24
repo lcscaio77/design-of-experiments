@@ -9,14 +9,63 @@ from fonctions import *
 st.markdown(
     """
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
     .stApp {
-        background: linear-gradient(to right,rgb(252, 252, 252), #CFE2F3); /* Bleu pastel clair → Bleu encore plus clair */
-        height: 100vh;
+        background: linear-gradient(135deg, #e1f9fc 0%, #ffffff 100%);
+        font-family: 'Montserrat', sans-serif;
+        color: #1e1e1e;
+        min-height: 100vh;
+        padding: 20px;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #57b8c9;
+        font-weight: 700;
+    }
+
+    .css-18e3th9, .css-1d391kg {
+        background-color: rgba(255, 255, 255, 0.85) !important;
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        color: #1e1e1e;
+    }
+
+    .css-q8sbsg p {
+        color: #333333;
+    }
+
+    input, textarea, select {
+        background-color: #f3fdff !important;
+        color: #57b8c9 !important;
+        border: 1px solid #57b8c9 !important;
+        border-radius: 8px !important;
+        padding: 10px;
+    }
+
+    ::placeholder {
+        color: #888 !important;
+    }
+
+    .stButton>button {
+        background-color: #57b8c9;
+        color: white;
+        font-weight: 600;
+        border: none;
+        border-radius: 8px;
+        padding: 0.6em 1.2em;
+        transition: 0.3s ease;
+    }
+
+    .stButton>button:hover {
+        background-color: #70d0e0;
+        transform: scale(1.05);
     }
     </style>
     """,
     unsafe_allow_html=True
-) #jolie fond :)
+)
 
 st.title("Design of Experiments 🚀")
 st.write("### Bienvenue dans l'application de Design of Experiments !")
